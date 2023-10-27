@@ -1,0 +1,34 @@
+<div>
+
+  <div [ngClass]="{ 'disabled': buttonNumber===-1 }">
+    <app-nav-bar [username]="username"></app-nav-bar>
+  </div>
+  <div *ngIf="buttonNumber>-1" class="buttons" [ngClass]="{ 'disabled': buttonNumber===-1 }">
+    <app-button [text]="usersButtonText" (click)="seeUsers()"></app-button>
+    <app-button [text]="addUserButtonText" (click)="addUser()"></app-button>
+    <app-button [text]="addDeviceButtonText" (click)="addDevice()"></app-button>
+    <app-button [text]="devicesButtonText" (click)="seeDevices()"></app-button>
+  </div>
+  <div class="table-container" *ngIf="buttonNumber===1">
+    <app-table (valueEdited)="editValue($event)" (valueDeleted)="deleteValue($event)" [headers]="headers" [usersDTO]="usersDTO" [entity]="entity" [devicesDTO]="devicesDTO" ></app-table>
+  </div>
+
+  <div *ngIf="buttonNumber===2">
+      <app-add-edit-user  (valueEmitted)="receiveValueFromModal($event)" [items]="items" [userDTO]="userDTO" [isEdit]="isEdit" [buttonText]="buttonText" ></app-add-edit-user>
+  </div>
+
+  <div *ngIf="buttonNumber===3">
+    <app-add-edit-device (valueEmitted)="receiveValueFromModal($event)" [items]="itemsForDevices" [deviceDTO]="deviceDTO" [isEdit]="isEdit" [buttonText]="buttonText" ></app-add-edit-device>
+  </div>
+
+  <div class="table-container" *ngIf="buttonNumber===4">
+    <app-table (valueEdited)="editValue($event)" (valueDeleted)="deleteValue($event)" [headers]="headers" [usersDTO]="usersDTO" [entity]="entity" [devicesDTO]="devicesDTO" ></app-table>
+  </div>
+
+  <div class="popup" *ngIf="buttonNumber===-1">
+    <app-alert-pop-up [message]="errorMessage" (valueEmitted)="receiveValueFromModal($event)" ></app-alert-pop-up>
+  </div>
+
+</div>
+
+

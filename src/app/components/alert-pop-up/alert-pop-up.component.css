@@ -1,0 +1,35 @@
+.popup {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  width: 45%;
+  height: 55%;
+  background-color: wheat;
+  border-radius: 10%;
+  border: 10px solid black;
+  position: relative;
+  color: darkblue;
+  font-size: 3.5rem;
+}
+h1 {
+  font-size: 5.5rem;
+}
+
+svg {
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  fill: red;
+  cursor: pointer;
+}
