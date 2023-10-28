@@ -8,15 +8,15 @@ import {AdminAuthGuard} from "./components/authenticator/AdminAuthGuard";
 import {UserAuthGuard} from "./components/authenticator/UserAuthGuard";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'admin', component: AdminPageComponent ,canActivate: [AdminAuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserPageComponent ,canActivate: [UserAuthGuard]},
-  { path: 'error', component: ErrorPageComponent }
+  { path: 'error', component: ErrorPageComponent },
+  { path: '**', redirectTo: '/login' ,pathMatch: 'full'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload', initialNavigation: 'enabledBlocking'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

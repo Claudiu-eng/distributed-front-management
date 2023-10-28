@@ -4,7 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
-import {NgOptimizedImage} from "@angular/common";
+import {HashLocationStrategy, LocationStrategy, NgOptimizedImage} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {AdminPageComponent} from './components/admin-page/admin-page.component';
@@ -46,7 +46,7 @@ import { AddEditDeviceComponent } from './components/add-edit-device/add-edit-de
     }),
     NgSelectModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
