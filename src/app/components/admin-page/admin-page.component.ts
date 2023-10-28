@@ -70,6 +70,11 @@ export class AdminPageComponent implements OnInit{
 
   editValue(id:string):void{
     if(this.buttonNumber ==1 ){
+      if(id === this.tokenService.decode()?.id){
+        this.buttonNumber = -1;
+        this.errorMessage = "cannot edit yourself";
+        return;
+      }
       const list =this.usersDTO.filter((userDTO)=>
         userDTO.id === id
       );
@@ -101,7 +106,8 @@ export class AdminPageComponent implements OnInit{
           this.buttonNumber = 3;
         },
         (error)=>{
-          console.log("error retrieving users for device creation")
+          this.buttonNumber = -1;
+          this.errorMessage = error.error.message;
         }
       );
 
@@ -110,7 +116,8 @@ export class AdminPageComponent implements OnInit{
   deleteValue(id:string):void{
     if(this.buttonNumber ==1 ){
       if(id === this.tokenService.decode()?.id){
-        console.log("cannot delete yourself");
+        this.buttonNumber = -1;
+        this.errorMessage = "cannot delete yourself";
         return;
       }
       this.userService.deleteUser(id).subscribe(
@@ -118,7 +125,8 @@ export class AdminPageComponent implements OnInit{
           this.seeUsers();
         },
         (error)=>{
-          console.log("error deleting user")
+          this.buttonNumber = -1;
+          this.errorMessage = error.error.message;
         }
       );
     }else if(this.buttonNumber == 4){
@@ -163,7 +171,10 @@ export class AdminPageComponent implements OnInit{
         this.buttonNumber = 3;
       },
       (error)=>{
-        console.log("error retrieving users for device creation")
+
+        this.buttonNumber = -1;
+        this.errorMessage = error.error.message;
+
       }
 
     )
@@ -172,33 +183,31 @@ export class AdminPageComponent implements OnInit{
   seeDevices():void{
     this.buttonNumber = 4;
     this.headers = this.headersDevices;
-    this.deviceService.getDevices().pipe(
-      catchError(error => {
-        console.log(error)
-        return throwError(error);
-      })
-    ).subscribe(
-      (succes)=> {
-        this.devicesDTO = succes;
+    this.deviceService.getDevices().subscribe(
+      (data)=>{
+        this.devicesDTO = data;
         this.entity = 2;
+      },
+      error => {
+        this.buttonNumber = -1;
+        this.errorMessage = error.error.message;
       }
-    )
+    );
   }
 
   seeUsers():void{
     this.buttonNumber = 1;
     this.headers = this.headersUsers;
-    this.userService.getUsers().pipe(
-      catchError(error => {
-        console.log(error)
-        return throwError(error);
-      })
-    ).subscribe(
-      (succes)=> {
-        this.usersDTO = succes;
+    this.userService.getUsers().subscribe(
+      (data)=>{
+        this.usersDTO = data;
         this.entity = 1;
+      },
+      error => {
+        this.buttonNumber = -1;
+        this.errorMessage = error.error.message;
       }
-    )
+    );
   }
 
 }
