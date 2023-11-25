@@ -8,6 +8,21 @@ img {
   width: 45px;
   height: 45px;
 }
+h1 {
+  font-size: 2rem;
+  font-family: "Rock Salt", cursive;
+}
+
+.interactive-element {
+  cursor: pointer;
+}
+
+svg {
+  fill: white !important;
+  width: 2rem;
+  height: 2rem;
+
+}
 
 .nav{
   background: black;
@@ -20,7 +35,7 @@ img {
 }
 
 .nav-title{
-  width: 30%;
+  width: 20%;
   height: 100%;
   background: red;
   padding: 10px 30px;
@@ -50,10 +65,13 @@ img {
   color: #fff;
   font-weight: bold;
 }
+.nav-menu img:hover{
+  transform: scale(1.1);
+}
 
 /*style for responsive menu*/
 
-@media screen and (max-width:1000px){
+@media screen and (max-width:1900px){
   .nav{
     height: auto;
   }

@@ -12,11 +12,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserPageComponent ,canActivate: [UserAuthGuard]},
   { path: 'error', component: ErrorPageComponent },
-  { path: '**', redirectTo: '/login' ,pathMatch: 'full'}
+  { path: '**', redirectTo: '/login' ,pathMatch: 'full'},
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload', initialNavigation: 'enabledBlocking'})],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload', initialNavigation: 'enabledBlocking',useHash: false})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

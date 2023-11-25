@@ -1,12 +1,31 @@
 .table-container {
-  width:100vw;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 120px;
 }
+.admin-container{
+  width:100vw;
+  margin: 0;
+  padding: 0;
+}
+app-nav-bar{
+  width: 90vw;
+  margin: 0;
+  padding: 0;
+}
 
-app-button {
-  width: 15vw;
+.main {
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.graph {
+  width: 70%;
+  margin: 0;
+  padding: 0;
 }

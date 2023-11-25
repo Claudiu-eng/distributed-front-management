@@ -18,6 +18,12 @@ import {ButtonComponent} from './components/button/button.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import {AddEditUserComponent} from "./components/add-edit-user/add-edit-user.component";
 import { AddEditDeviceComponent } from './components/add-edit-device/add-edit-device.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -31,7 +37,8 @@ import { AddEditDeviceComponent } from './components/add-edit-device/add-edit-de
     TableComponent,
     ButtonComponent,
     AddEditUserComponent,
-    AddEditDeviceComponent
+    AddEditDeviceComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +46,14 @@ import { AddEditDeviceComponent } from './components/add-edit-device/add-edit-de
     NgOptimizedImage,
     FormsModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NoopAnimationsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => sessionStorage.getItem('access_token')
