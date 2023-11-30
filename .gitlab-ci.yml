@@ -1,6 +1,17 @@
-build website:
-  image: node:latest
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  CI: ""
+
+build:
+  stage: build
+  image: node:11
   script:
-    - RUN npm install -g @angular/cli
-    - RUN npm install
+    - npm install --progress=false
     - npm run build
