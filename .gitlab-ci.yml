@@ -2,16 +2,9 @@ stages:
   - build
   - deploy
 
-cache:
-  paths:
-    - node_modules/
-
-variables:
-  CI: ""
-
 build:
   stage: build
-  image: nginx:alpine
+  image: node:20
   script:
     - npm install --progress=false
     - npm run build
