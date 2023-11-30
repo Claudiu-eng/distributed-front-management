@@ -10,9 +10,9 @@ build:
     - npm run build
   artifacts:
     paths:
-      - dist/
+      - dist
 
 test website:
   stage: test
   script:
-    - test -f ./dist/index.html
+    - test -f dist/ds2023-30641-tulbure-claudiu-marcel-frontend/index.html
