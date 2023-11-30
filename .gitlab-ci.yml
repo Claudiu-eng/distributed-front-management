@@ -1,6 +1,6 @@
 stages:
   - build
-  - deploy
+  - test
 
 build:
   stage: build
@@ -8,3 +8,11 @@ build:
   script:
     - npm install --progress=false
     - npm run build
+  artifacts:
+    paths:
+      - dist/
+
+test website:
+  stage: test
+  script:
+    - test -f ./dist/index.html
