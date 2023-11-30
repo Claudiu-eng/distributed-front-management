@@ -11,7 +11,7 @@ variables:
 
 build:
   stage: build
-  image: node:11
+  image: nginx:alpine
   script:
     - npm install --progress=false
     - npm run build
