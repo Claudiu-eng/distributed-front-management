@@ -1,5 +1,6 @@
 build website:
   image: node:latest
   script:
-    - npm install
-    - npm build
+    - RUN npm install -g @angular/cli
+    - RUN npm install
+    - RUN ng build --configuration=production
