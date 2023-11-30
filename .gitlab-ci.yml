@@ -1,0 +1,5 @@
+build website:
+  image: node:latest
+  script:
+    - npm install
+    - npm build
