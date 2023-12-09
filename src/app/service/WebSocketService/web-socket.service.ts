@@ -8,13 +8,21 @@ import {CompatClient, Stomp} from '@stomp/stompjs';
 export class WebSocketService {
   websocket!: WebSocket;
   stompClient!: CompatClient;
+  secondWebsocket!: WebSocket;
+  secondStompClient!: CompatClient;
+  thirdWebsocket!: WebSocket;
+  thirdStompClient!: CompatClient;
   constructor() { }
 
 
   connect(url:string) {
-    const URL = "http://localhost:8095/socket";
+
     this.websocket = new SockJS(url);
     this.stompClient = Stomp.over(this.websocket);
+    this.secondWebsocket = new SockJS(url);
+    this.secondStompClient = Stomp.over(this.secondWebsocket);
+    this.thirdWebsocket = new SockJS(url);
+    this.thirdStompClient = Stomp.over(this.thirdWebsocket);
 
   }
 

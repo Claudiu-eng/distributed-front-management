@@ -10,7 +10,7 @@
     <app-button [text]="devicesButtonText" (click)="seeDevices()"></app-button>
   </div>
   <div class="table-container" *ngIf="buttonNumber===1">
-    <app-table (valueEdited)="editValue($event)" (valueDeleted)="deleteValue($event)" [headers]="headers" [usersDTO]="usersDTO" [entity]="entity" [devicesDTO]="devicesDTO" ></app-table>
+    <app-table (valueEdited)="editValue($event)" (sendMessageToUser)="openChat($event)" (addUserToGroup)="addUserToGroup($event)" (valueDeleted)="deleteValue($event)" [headers]="headers" [usersDTO]="usersDTO" [entity]="entity" [devicesDTO]="devicesDTO" ></app-table>
   </div>
 
   <div *ngIf="buttonNumber===2">
@@ -23,6 +23,12 @@
 
   <div class="table-container" *ngIf="buttonNumber===4">
     <app-table (valueEdited)="editValue($event)" (valueDeleted)="deleteValue($event)" [headers]="headers" [usersDTO]="usersDTO" [entity]="entity" [devicesDTO]="devicesDTO" ></app-table>
+  </div>
+
+  <div class="chat-cont">
+    <div  *ngFor="let user of usersGroup">
+      <app-chat [emitter]="username" [recipient]="user.email"></app-chat>
+    </div>
   </div>
 
   <div class="popup" *ngIf="buttonNumber===-1">

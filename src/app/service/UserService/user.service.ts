@@ -21,6 +21,13 @@ export class UserService {
 
     return this.httpClient.get<UserDTO[]>(`${this.baseUrlAdmin}/all-users`, { headers });
   }
+  getAdmins() {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('access_token')}`
+    });
+
+    return this.httpClient.get<UserDTO[]>(`${this.baseUrlUser}/all-admins`, { headers });
+  }
 
 
   register(userDTO: RegisterDTO) {
@@ -45,4 +52,5 @@ export class UserService {
     });
     return this.httpClient.put(`${this.baseUrlAdmin}`, userDTO,{ headers });
   }
+
 }

@@ -1,18 +1,19 @@
 <div class="admin-container">
 
-  <app-nav-bar [username]="username"></app-nav-bar>
+  <app-nav-bar (openChatEvent)="openChat()" [username]="username"></app-nav-bar>
   <app-alert *ngIf="showAlert"  [message]="message" (valueEmitted)="closeAlert($event)"></app-alert>
 
   <div class="main">
     <div class="table-container">
-      <app-table [headers]="headers" (seeCalendar)="seeCalendar($event)" [usersDTO]="usersDTO" [entity]="2" [devicesDTO]="devicesDTO"></app-table>
+      <app-table [headers]="headers" (seeCalendar)="seeCalendar($event)" [entity]="2" [devicesDTO]="devicesDTO"></app-table>
+    </div>
+    <div *ngIf="chat" class="chat-cont">
+      <app-chat [emitter]="username" [recipient]="admin"></app-chat>
     </div>
     <div class="graph">
       <canvas id="canvas">{{chart}}</canvas>
     </div>
-
-
-
   </div>
+
 
 </div>

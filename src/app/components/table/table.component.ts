@@ -18,6 +18,8 @@ export class TableComponent implements OnInit{
   @Output() valueEdited = new EventEmitter<string>();
   @Output() valueDeleted = new EventEmitter<string>();
   @Output() seeCalendar = new EventEmitter<any>();
+  @Output() addUserToGroup = new EventEmitter<UserDTO>();
+  @Output() sendMessageToUser = new EventEmitter<UserDTO>();
   onlyUser!:boolean;
   selectedDate!: Date;
 
@@ -41,6 +43,10 @@ export class TableComponent implements OnInit{
     const  date = this.selectedDate;
     if(date)
       this.seeCalendar.emit({id,date});
+  }
+
+  sendMessage(user:UserDTO){
+    this.sendMessageToUser.emit(user);
   }
 
 }

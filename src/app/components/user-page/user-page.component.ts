@@ -21,6 +21,7 @@ export class UserPageComponent implements OnInit {
 
   devicesDTO!: DeviceDTO[]
   username !: string;
+  chat!: boolean;
   headers: HeadersTableDTO = {
     first: "Id",
     second: "Address",
@@ -28,11 +29,10 @@ export class UserPageComponent implements OnInit {
     fourth: "Description",
     fifth: "User"
   }
-  usersDTO: UserDTO[] = [];
+  admin:string = "superadmin@gmail.com";
   chart: any = [];
   showAlert!: boolean;
   message!: string;
-  showChart!: boolean;
 
   constructor(private tokenService: TokenService, private router: Router,
               private deviceService: DeviceService, private webSocketService: WebSocketService,
@@ -41,6 +41,7 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.showAlert = false;
+    this.chat = false;
     const tokenDecoded = this.tokenService.decode();
     if (tokenDecoded) {
       this.username = tokenDecoded.sub;
@@ -55,12 +56,18 @@ export class UserPageComponent implements OnInit {
             });
           });
         })
-      })
-    };
+      });
+
+    }
+
     this.createChart([],[]);
 
   }
 
+  openChat(): void {
+
+    this.chat = true;
+  }
 
   closeAlert(id: string) {
     this.showAlert = false;

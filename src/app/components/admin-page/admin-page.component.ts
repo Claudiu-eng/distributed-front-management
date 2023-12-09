@@ -17,6 +17,7 @@ export class AdminPageComponent implements OnInit {
 
   username !: string;
   errorMessage!: string;
+  usersGroup!: Set<UserDTO>;
   headersUsers: HeadersTableDTO = {
     first: "Id",
     second: "Username",
@@ -58,6 +59,7 @@ export class AdminPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usersGroup = new Set<UserDTO>();
     const tokenDecoded = this.tokenService.decode();
     if (tokenDecoded)
       this.username = tokenDecoded.sub;
@@ -111,6 +113,13 @@ export class AdminPageComponent implements OnInit {
       );
 
     }
+  }
+  addUserToGroup(user: UserDTO): void {
+    this.usersGroup.add(user);
+    console.log(this.usersGroup);
+  }
+  openChat(user: UserDTO): void {
+    this.usersGroup.add(user);
   }
 
   deleteValue(id: string): void {

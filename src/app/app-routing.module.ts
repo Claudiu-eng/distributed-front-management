@@ -6,13 +6,15 @@ import {ErrorPageComponent} from "./components/error-page/error-page.component";
 import {UserPageComponent} from "./components/user-page/user-page.component";
 import {AdminAuthGuard} from "./components/authenticator/AdminAuthGuard";
 import {UserAuthGuard} from "./components/authenticator/UserAuthGuard";
+import {ChatComponent} from "./components/chat/chat.component";
 
 const routes: Routes = [
   { path: 'admin', component: AdminPageComponent ,canActivate: [AdminAuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserPageComponent ,canActivate: [UserAuthGuard]},
   { path: 'error', component: ErrorPageComponent },
-  { path: '**', redirectTo: '/login' ,pathMatch: 'full'},
+  { path: 'chat' ,component: ChatComponent},
+  { path: '**', redirectTo: '/login' ,pathMatch: 'full'}
 
 ];
 

@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     ButtonComponent,
     AddEditUserComponent,
     AddEditDeviceComponent,
-    AlertComponent
+    AlertComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
