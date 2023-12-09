@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'user', component: UserPageComponent ,canActivate: [UserAuthGuard]},
   { path: 'error', component: ErrorPageComponent },
-  { path: 'chat' ,component: ChatComponent},
   { path: '**', redirectTo: '/login' ,pathMatch: 'full'}
 
 ];
