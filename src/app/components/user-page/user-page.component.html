@@ -8,7 +8,7 @@
       <app-table [headers]="headers" (seeCalendar)="seeCalendar($event)" [entity]="2" [devicesDTO]="devicesDTO"></app-table>
     </div>
     <div *ngIf="chat" class="chat-cont">
-      <app-chat [emitter]="username" [recipient]="admin"></app-chat>
+      <app-chat [emitter]="username" [recipient]="admin" (closeChat)="closeUserChat($event)"></app-chat>
     </div>
     <div class="graph">
       <canvas id="canvas">{{chart}}</canvas>

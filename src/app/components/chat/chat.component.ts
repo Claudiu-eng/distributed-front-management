@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MessageService} from "../../service/MessageService/message.service";
 import {MessageDTO} from "../../dto/MessageDTO";
 import {Message} from "../../dto/Message";
@@ -16,6 +16,7 @@ export class ChatComponent implements OnInit {
   messages: Message[] = [];
   userInput: string = '';
   isTyping: boolean = false;
+  @Output() closeChat = new EventEmitter<string>();
 
 
   constructor(private messageService: MessageService, private webSocketService: WebSocketService,) {
@@ -49,7 +50,7 @@ export class ChatComponent implements OnInit {
 
       this.webSocketService.thirdStompClient.connect({}, (frame: any) => {
         this.webSocketService.thirdStompClient.subscribe("/topic/socket/messages/" + this.emitter + "/" + this.recipient + "/typing", (message) => {
-          if (!(message.body === 'no')){
+          if (!(message.body === 'no')) {
             this.isTyping = true;
           } else {
             this.isTyping = false;
@@ -60,6 +61,9 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  exit() {
+    this.closeChat.emit(this.recipient);
+  }
 
   sendMessage() {
     if (this.userInput.trim() === '') {
@@ -74,13 +78,13 @@ export class ChatComponent implements OnInit {
   }
 
   markAsRead() {
-    if (!this.messages[this.messages.length - 1].read && this.messages[this.messages.length - 1].sender === 'received') {
-      const idUnreadMessages = this.messages.filter(message => !message.read && message.sender === 'received').map(message => message.id);
-      this.messageService.markAsRead(idUnreadMessages).subscribe(data => {
-        this.messages.filter(message => !message.read && message.sender === 'received').forEach(message => message.read = true);
-      })
-
+    if (this.messages.length === 0) {
+      return;
     }
+    const idUnreadMessages = this.messages.filter(message => !message.read && message.sender === 'received').map(message => message.id);
+    this.messageService.markAsRead(idUnreadMessages).subscribe(data => {
+      this.messages.filter(message => !message.read && message.sender === 'received').forEach(message => message.read = true);
+    })
   }
 
   typing() {

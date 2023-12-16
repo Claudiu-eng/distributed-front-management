@@ -4,6 +4,8 @@
   background-color: red;
   max-width: 400px;
   overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .typing-notification {
@@ -71,4 +73,12 @@ button {
 
 button:hover {
   background-color: #45a049;
+}
+svg {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+  fill: black;
+  cursor: pointer;
+  right: 0;
 }

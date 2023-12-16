@@ -69,6 +69,10 @@ export class UserPageComponent implements OnInit {
     this.chat = true;
   }
 
+  closeUserChat(user: string): void {
+    this.chat = false;
+  }
+
   closeAlert(id: string) {
     this.showAlert = false;
   };
