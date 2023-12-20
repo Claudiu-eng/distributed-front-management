@@ -1,39 +1,42 @@
-# Azure Pipeline for Frontend
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '16.x'
+        displayName: 'Install Node.js 16.x'
 
-trigger:
-- master
+      - script: |
+          cd AngularWithAzure/
+          npm install -g @angular/cli
+          npm install
+          ng build --prod
+        displayName: 'npm install and build'
+        workingDirectory: '$(Build.SourcesDirectory)'
 
-pool:
-  vmImage: ubuntu-latest
+      - task: CmdLine@2
+        displayName: "Run unit tests"
+        inputs:
+          script: |
+            cd AngularWithAzure/
+            ng test --browsers=ChromeHeadless --code-coverage --watch=false
 
-variables:
-  buildConfiguration: 'Release'
+      - task: ArchiveFiles@2
+        displayName: 'Archive files'
+        inputs:
+          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/dist/angular-with-azure/'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          replaceExistingArchive: true
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'Build the frontend'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.SourcesDirectory)/dist'
-    artifactName: 'drop'
-    publishLocation: 'Container'
-  displayName: 'Publish Artifacts'
-
-- task: AzureRmWebAppDeployment@4
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'YourAzureSubscription' # Trebuie să fie configurat în Azure DevOps
-    appType: 'webApp'
-    WebAppName: 'YourWebAppName' # Numele aplicației web Azure
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/drop/.' 
-    useWebDeploy: false
-    enableCustomDeployment: true
-  displayName: 'Deploy to Azure Web App'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
