@@ -1,7 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Azure Pipeline for Frontend
 
 trigger:
 - master
@@ -9,11 +6,34 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  buildConfiguration: 'Release'
+
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    npm install
+    npm run build
+  displayName: 'Build the frontend'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.SourcesDirectory)/dist'
+    artifactName: 'drop'
+    publishLocation: 'Container'
+  displayName: 'Publish Artifacts'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'YourAzureSubscription' # Trebuie să fie configurat în Azure DevOps
+    appType: 'webApp'
+    WebAppName: 'YourWebAppName' # Numele aplicației web Azure
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/drop/.' 
+    useWebDeploy: false
+    enableCustomDeployment: true
+  displayName: 'Deploy to Azure Web App'
