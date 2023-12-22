@@ -12,7 +12,7 @@ variables:
 steps:
 - script: |
     npm install
-    npm run build configuration=prod
+    npm run build --configuration=prod
   displayName: 'Build Angular App'
 
 - task: PublishBuildArtifacts@1
