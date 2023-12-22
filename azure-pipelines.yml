@@ -4,10 +4,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'  # Use the latest Ubuntu agent
 
-variables:
-  # Define your environment-specific variables here
-  buildConfiguration: 'prod'
-  # Add any other variables you need for deployment, like connection strings, etc.
 
 steps:
 - script: |
